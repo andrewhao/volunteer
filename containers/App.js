@@ -1,28 +1,37 @@
 import React, { Component, PropTypes } from 'react'
-import { bindActionCreators } from 'redux'
+import { dispatch, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-//import Sheet from '../components/sheet'
 import * as SheetActions from '../actions/sheet'
 
 class App extends Component {
   render() {
-    const { sheet, actions } = this.props
+    const { sheets, actions } = this.props
     return (
       <div>
-        <p>Hello!</p>
+        <p>Rows {sheets.rows}</p>
+        <input type="text" onChange={actions.changeNumRowsToAdd} value={sheets.numRowsToAdd} />
+        <a href="#" onClick={actions.addRow}>Add Row</a>
+        <table>
+        <tbody>
+          {sheets.rows.map(function(row) {
+            return(<tr>
+                     <td>cell</td>
+                   </tr>) })}
+                   </tbody>
+        </table>
       </div>
     )
   }
 }
 
-//App.propTypes = {
-//  todos: PropTypes.array.isRequired,
-//  actions: PropTypes.object.isRequired
-//}
+App.propTypes = {
+  sheets:       PropTypes.object.isRequired,
+  actions:      PropTypes.object.isRequired
+}
 
 function mapStateToProps(state) {
   return {
-    sheet: state.sheet
+    sheets: state.sheets
   }
 }
 
